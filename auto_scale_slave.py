@@ -151,6 +151,6 @@ def auto_scale(num):
         return scale_down(num)
     
 
-num = server_counter(max_num)
+num = server_counter()
 if min_num < num <= max_num - 1:    
     auto_scale(num)
