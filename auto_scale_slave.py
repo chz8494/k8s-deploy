@@ -22,12 +22,14 @@ def delete_server(name):
     server = conn.delete_server(name_or_id=name)
     return server
 
-def server_counter(num):
-    for i in range(num):
+def server_counter():
+    for i in range(max_num):
         name = Name + str(i)
         server = find_server(name)
-        if not server or (i == num - 1):           
+        if not server:           
             return i 
+        elif server and (i == max_num - 1):
+            return max_num
 
 def reboot_server(server):
     conn = openstack.connect(cloud='cbopenstack-admin')
@@ -150,7 +152,5 @@ def auto_scale(num):
     
 
 num = server_counter(max_num)
-if num < max_num - 1:    
+if min_num < num <= max_num - 1:    
     auto_scale(num)
-
-
