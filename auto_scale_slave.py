@@ -128,29 +128,57 @@ def auto_scale(num):
             'fields': fields
         }
     ]
-    if (total_cpu > 60) or (total_ram > 60):
-        sc.api_call(
-            'chat.postMessage',
-            channel='logs',
-    #        username=SLACK_USERNAME,
-    #        icon_url=SLACK_ICON,
-            text='cluster does not have enough resource, starting auto cluster scaling!',
-            attachments=json.dumps(attachments)
-        )
-        return scale_up(num)
-   
-    if (total_cpu < 40) or (total_ram < 40):
-        sc.api_call(
-            'chat.postMessage',
-            channel='logs',
-    #        username=SLACK_USERNAME,
-    #        icon_url=SLACK_ICON,
-            text='Cluster has too much free resource, starting auto cluster downsizing!',
-            attachments=json.dumps(attachments)
-        )
-        return scale_down(num)
+    if num == max_num:
+        if (total_cpu < 40) or (total_ram < 40):
+            sc.api_call(
+                'chat.postMessage',
+                channel='logs',
+        #        username=SLACK_USERNAME,
+        #        icon_url=SLACK_ICON,
+                text='Cluster has too much free resource, starting auto cluster downsizing!',
+                attachments=json.dumps(attachments)
+            )
+            return scale_down(num)
+        else:
+            pass
+    if num == min_num:
+        if (total_cpu > 60) or (total_ram > 60):
+            sc.api_call(
+                'chat.postMessage',
+                channel='logs',
+        #        username=SLACK_USERNAME,
+        #        icon_url=SLACK_ICON,
+                text='cluster does not have enough resource, starting auto cluster scaling!',
+                attachments=json.dumps(attachments)
+            )
+            return scale_up(num)
+        else:
+            pass
+    else:
+        if (total_cpu > 60) or (total_ram > 60):
+            sc.api_call(
+                'chat.postMessage',
+                channel='logs',
+        #        username=SLACK_USERNAME,
+        #        icon_url=SLACK_ICON,
+                text='cluster does not have enough resource, starting auto cluster scaling!',
+                attachments=json.dumps(attachments)
+            )
+            return scale_up(num)
+       
+        if (total_cpu < 40) or (total_ram < 40):
+            sc.api_call(
+                'chat.postMessage',
+                channel='logs',
+        #        username=SLACK_USERNAME,
+        #        icon_url=SLACK_ICON,
+                text='Cluster has too much free resource, starting auto cluster downsizing!',
+                attachments=json.dumps(attachments)
+            )
+            return scale_down(num)
     
 
 num = server_counter()
-if min_num < num <= max_num - 1:    
+if min_num <= num <= max_num:    
     auto_scale(num)
+    
