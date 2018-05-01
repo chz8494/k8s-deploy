@@ -155,7 +155,7 @@ def auto_scale(num):
         else:
             pass
     else:
-        if (total_cpu > 60) or (total_ram > 60):
+        if (total_cpu > 70) or (total_ram > 70):
             sc.api_call(
                 'chat.postMessage',
                 channel='logs',
