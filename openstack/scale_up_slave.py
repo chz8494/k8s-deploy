@@ -41,10 +41,10 @@ def server_counter(num):
             return i
             
 try:
-    os.remove("/home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg")
+    os.remove("/home/ubuntu/bot/k8s/scale_up.cfg")
 except OSError:
     pass
-with open('/home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg', 'a') as f:
+with open('/home/ubuntu/bot/k8s/scale_up.cfg', 'a') as f:
     f.write("[kube-node]\n")
 
 num = server_counter(max_num)
@@ -55,25 +55,25 @@ for i in range(num + increase_num):
         server = create_server(name)
         print ("New slave " + server.name + " has been created, with IP " + server.private_v4)
         reboot_server(server)
-        with open('/home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg', 'a') as f:
+        with open('/home/ubuntu/bot/k8s/scale_up.cfg', 'a') as f:
             f.write(server.name+"\n")
     else:
         print ("server " + server.name + " exists!")
-        with open('/home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg', 'a') as f:
+        with open('/home/ubuntu/bot/k8s/scale_up.cfg', 'a') as f:
             f.write(server.name + "\n")
 
 time.sleep(30)
             
-with open('/home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg', 'r') as f:
+with open('/home/ubuntu/bot/k8s/scale_up.cfg', 'r') as f:
     content = f.readlines()
     for line in content:
-        os.system('ping -c 5 ' + line)
+        os.system('sudo ssh 10.240.105.29 ping -c 5 ' + line)
             
 time.sleep(30)
 
 with open('/home/ubuntu/k8s-deploy/openstack/scale_temp.txt', 'r') as f:
     content = f.read()
-    with open('/home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg', 'a') as f:
+    with open('/home/ubuntu/bot/k8s/scale_up.cfg', 'a') as f:
         f.write(content)
-
-os.system('ansible-playbook -i /home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg /home/ubuntu/kubespray-master/scale.yml')
+os.system('sudo scp /home/ubuntu/bot/k8s/scale_up.cfg 10.240.105.29://home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg')
+os.system('sudo ssh 10.240.105.29 ansible-playbook -i /home/ubuntu/kubespray-master/inventory/mycluster/scale_up.cfg /home/ubuntu/kubespray-master/scale.yml')
