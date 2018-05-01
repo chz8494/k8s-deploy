@@ -148,7 +148,7 @@ def auto_scale(num):
                 channel='logs',
         #        username=SLACK_USERNAME,
         #        icon_url=SLACK_ICON,
-                text='cluster does not have enough resource, starting auto cluster scaling!',
+                text='cluster does not have enough resource, working on auto cluster scaling, it may take up to 5 mins for new node to be appeared, be patient please!',
                 attachments=json.dumps(attachments)
             )
             return scale_up(num)
@@ -161,7 +161,7 @@ def auto_scale(num):
                 channel='logs',
         #        username=SLACK_USERNAME,
         #        icon_url=SLACK_ICON,
-                text='cluster does not have enough resource, starting auto cluster scaling!',
+                text='cluster does not have enough resource, working on auto cluster scaling, it may take up to 5 mins for new node to be appeared, be patient please!',
                 attachments=json.dumps(attachments)
             )
             return scale_up(num)
