@@ -6,12 +6,12 @@ decrease_num = 2
 
 def find_server(name):    
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes')
+    conn = conn.connect_as_project('Kubernetes-staging')
     server = conn.get_server(name_or_id= name)  
     return server
 def delete_server(name):
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes')
+    conn = conn.connect_as_project('Kubernetes-staging')
     server = conn.delete_server(name_or_id=name)
     return server
 
