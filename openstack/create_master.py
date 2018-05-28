@@ -5,19 +5,19 @@ Name = 'k8s-master-'
 
 def find_server(name):    
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes-staging')
+    conn = conn.connect_as_project('Openstack-Helm')
     server = conn.get_server(name_or_id= name)  
     return server
 
 def reboot_server(server):
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes-staging')
+    conn = conn.connect_as_project('Openstack-Helm')
     conn.compute.reboot_server(server.id,reboot_type="HARD")
 
 def create_server(name):
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes-staging')
-    network = conn.network.find_network('kubernetes')
+    conn = conn.connect_as_project('Openstack-Helm')
+    network = conn.network.find_network('Helm')
     flavor = conn.compute.find_flavor('k8s-master')
     image = conn.compute.find_image('Kubernetes')
     userdata = '''#cloud-config
