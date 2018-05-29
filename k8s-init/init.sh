@@ -1,5 +1,5 @@
 sudo scp k8s-master-0:/etc/kubernetes/admin.conf /home/ubuntu/.kube/config
-git clone https://github.com/chz8494/k8s-nfs -b cloud2
+git clone https://github.com/chz8494/k8s-nfs -b wt-dev
 cd k8s-nfs
 kubectl apply -f ./
 cd ..
