@@ -5,19 +5,19 @@ Name = 'k8s-slave-'
 
 def find_server(name):    
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes')
+    conn = conn.connect_as_project('WT-dev')
     server = conn.get_server(name_or_id= name)  
     return server
 
 def reboot_server(server):
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes')
+    conn = conn.connect_as_project('WT-dev')
     conn.compute.reboot_server(server.id,reboot_type="HARD")
 
 def create_server(name):
     conn = openstack.connect(cloud='cbopenstack-admin')
-    conn = conn.connect_as_project('Kubernetes')
-    network = conn.network.find_network('kubernetes')
+    conn = conn.connect_as_project('WT-dev')
+    network = conn.network.find_network('WT-dev')
     flavor = conn.compute.find_flavor('k8s-slave')
     image = conn.compute.find_image('Kubernetes')
     userdata = '''#cloud-config
