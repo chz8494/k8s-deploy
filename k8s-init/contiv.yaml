@@ -273,7 +273,7 @@ spec:
       - key: node-role.kubernetes.io/master
         effect: NoSchedule
       nodeSelector:
-        node-role.kubernetes.io/master: ""
+        node-role.kubernetes.io/master: "true"
       serviceAccountName: contiv-netmaster
       initContainers:
         - name: contiv-netplugin-init
