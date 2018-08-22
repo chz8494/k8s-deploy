@@ -19,12 +19,12 @@ def create_server(name):
     conn = conn.connect_as_project('Kubernetes-dev')
     network = conn.network.find_network('kubernetes')
     flavor = conn.compute.find_flavor('k8s-master')
-    image = conn.compute.find_image('Kubernetes')
+    image = conn.compute.find_image('kubernetes_1450')
     userdata = '''#cloud-config
         disable_root: 0
         '''
     server = conn.create_server(
-        name= name, image=image.id, flavor=flavor.id, key_name='Lab', userdata=userdata,
+        name= name, image=image.id, flavor=flavor.id, key_name='Lab', userdata=userdata, availability_zone='nova',
                 config_drive=True, boot_from_volume=True, network= network.id, wait=True, auto_ip=False)  
 
     server = conn.compute.wait_for_server(server)
