@@ -3,7 +3,7 @@ git clone https://github.com/chz8494/k8s-nfs -b Openstack-Helm
 cd k8s-nfs
 kubectl apply -f ./
 cd ..
-git clone https://github.com/chz8494/k8s-EFK
+git clone https://source.cloud.google.com/newagent-c06cb/k8s-EFK
 cd k8s-EFK
 sh run.sh
 cd ..
